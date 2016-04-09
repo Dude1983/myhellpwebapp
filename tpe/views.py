@@ -1,4 +1,7 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.http import Http404
+from django.template.defaultfilters import slugify
 from tpe.forms import ExperienceForm
 from tpe.models import Experience
 
@@ -12,10 +15,12 @@ def experience_detail(request, slug):
     experience = Experience.objects.get(slug=slug)
     return render(request, 'experiences/experience_detail.html', { 'experience': experience })
 
+@login_required
 def edit_experience(request, slug):
     # grab the object
     experience = Experience.objects.get(slug=slug)
-
+    if experience.user != request.user:
+        raise Http404
     # set the form we're using
     form_class = ExperienceForm
 
@@ -30,3 +35,17 @@ def edit_experience(request, slug):
     else:
         form = form_class(instance=experience)
     return render(request, 'experiences/edit_experience.html', { 'experience': experience, 'form': form })
+
+def create_experience(request):
+    form_class = ExperienceForm
+    if request.method == 'POST':
+        form = form_class(request.POST)
+        if form.is_valid():
+            experience = form.save(commit=False)
+            experience.user = request.user
+            experience.slug = slugify(experience.name)
+            experience.save()
+            return redirect('experience_detail', slug=experience.slug)
+    else:
+        form = form_class()
+    return render(request, 'experiences/create_experience.html', {'form': form,})

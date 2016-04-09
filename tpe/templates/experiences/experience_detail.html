@@ -3,5 +3,7 @@
 {% block content %}
     <h2>{{ experience.name }}</h2>
     <p>{{ experience.description }}</p>
-    <a href="{%  url 'edit_experience' slug=experience.slug %}">Edit me!</a>
+    {% if user == experience.user %}
+        <a href="{%  url 'edit_experience' slug=experience.slug %}">Edit me!</a>
+    {% endif %}
 {% endblock %}
