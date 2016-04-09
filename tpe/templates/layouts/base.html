@@ -1,0 +1,37 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+  <head>
+      <title>
+          {% block title %}
+            The Purity Experience
+          {% endblock %}
+      </title>
+      <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+      {% block header %}
+      {%  endblock %}
+  </head>
+  <body>
+    <header>
+        <nav>
+            <ul>
+                <li>
+                    <a href="{%  url 'home' %}">Home</a>
+                    <a href="{%  url 'about' %}">About Us</a>
+                    <a href="{%  url 'contact' %}">Contact</a>
+                    {% if user.is_authenticated %}
+                        <a href="{%  url 'auth_logout' %}">Logout</a>
+                    {% else %}
+                        <a href="{%  url 'auth_login' %}">Login</a>
+                        <a href="{%  url 'registration_register' %}">Register</a>
+                    {%  endif %}
+                </li>
+            </ul>
+        </nav>
+    </header>
+    {%  block content %}
+    {%  endblock %}
+    {%  block footer %}
+    {%  endblock %}
+  </body>
+</html>

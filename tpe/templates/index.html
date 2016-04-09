@@ -1,0 +1,9 @@
+{%  extends 'layouts/base.html' %}
+{% load humanize %}
+{% block title %}Homepage - {{  block.super }} {% endblock %}
+{% block content %}
+    {%  for experience in experiences %}
+        <h2><a href="{%  url 'experience_detail' slug=experience.slug %}">{{ experience.name }}</a></h2>
+        <p>{{ experience.description }}</p>
+    {%  endfor %}
+{% endblock %}

@@ -1,0 +1,7 @@
+{%  extends 'layouts/base.html' %}
+{% block title %}{{ experience.name }} {{  block.super }} {% endblock %}
+{% block content %}
+    <h2>{{ experience.name }}</h2>
+    <p>{{ experience.description }}</p>
+    <a href="{%  url 'edit_experience' slug=experience.slug %}">Edit me!</a>
+{% endblock %}
