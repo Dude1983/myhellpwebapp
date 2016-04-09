@@ -1,0 +1,1 @@
+/Users/carstenpleiser/Desktop/apps/full-stack/myhellowebapp/myhellowebapp/static/robots.txt
