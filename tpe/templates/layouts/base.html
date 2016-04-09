@@ -16,15 +16,16 @@
         <nav>
             <ul>
                 <li>
-                    <a href="{%  url 'home' %}">Home</a>
-                    <a href="{%  url 'about' %}">About Us</a>
-                    <a href="{%  url 'contact' %}">Contact</a>
+                    <a href="{% url 'home' %}">Home</a>
+                    <a href="{% url 'about' %}">About Us</a>
+                    <a href="{% url 'contact' %}">Contact</a>
+                    <a href="{% url 'browse' %}">Browse</a>
                     {% if user.is_authenticated %}
-                        <a href="{%  url 'auth_logout' %}">Logout</a>
+                        <a href="{% url 'auth_logout' %}">Logout</a>
                         <a href="{% url 'password_change' %}">Change password</a>
                     {% else %}
-                        <a href="{%  url 'auth_login' %}">Login</a>
-                        <a href="{%  url 'registration_register' %}">Register</a>
+                        <a href="{% url 'auth_login' %}">Login</a>
+                        <a href="{% url 'registration_register' %}">Register</a>
                     {%  endif %}
                 </li>
             </ul>

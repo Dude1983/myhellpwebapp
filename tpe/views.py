@@ -15,7 +15,7 @@ def experience_detail(request, slug):
     experience = Experience.objects.get(slug=slug)
     return render(request, 'experiences/experience_detail.html', { 'experience': experience })
 
-@login_required
+@login_required()
 def edit_experience(request, slug):
     # grab the object
     experience = Experience.objects.get(slug=slug)
@@ -33,7 +33,7 @@ def edit_experience(request, slug):
             form.save()
             return redirect('experience_detail', slug=experience.slug)
     else:
-        form = form_class(instance=experience)
+        form = form_class(instance=experiences)
     return render(request, 'experiences/edit_experience.html', { 'experience': experience, 'form': form })
 
 def create_experience(request):
@@ -49,3 +49,11 @@ def create_experience(request):
     else:
         form = form_class()
     return render(request, 'experiences/create_experience.html', {'form': form,})
+
+def browse_by_name(request, initial=None):
+    if initial:
+        experiences = Experience.objects.filter(name__istartswith=initial)
+        experiences = experiences.order_by('name')
+    else:
+        experiences = Experience.objects.all().order_by('name')
+    return render(request, 'search/search.html', { 'experiences': experiences, 'initial': initial, })
