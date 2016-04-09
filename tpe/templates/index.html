@@ -1,9 +1,25 @@
-{%  extends 'layouts/base.html' %}
+{% extends 'layouts/base.html' %}
 {% load humanize %}
-{% block title %}Homepage - {{  block.super }} {% endblock %}
+{% block title %}Homepage - {{ block.super }} {% endblock %}
 {% block content %}
-    {%  for experience in experiences %}
-        <h2><a href="{%  url 'experience_detail' slug=experience.slug %}">{{ experience.name }}</a></h2>
-        <p>{{ experience.description }}</p>
-    {%  endfor %}
+    <div class="panel panel-primary">
+    {% for experience in experiences %}
+        <div class="panel-heading">
+            <h2 class="panel-title"><a
+                    href="{% url 'experience_detail' slug=experience.slug %}">{{ experience.name }}</a></h2>
+        </div>
+        <div class="panel-body">
+            <p>{{ experience.description }}</p>
+            <p>{{ experience.user }}</p>
+        </div>
+    {% endfor %}
 {% endblock %}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Panel primary</h3>
+    </div>
+    <div class="panel-body">
+        Panel content
+    </div>
+</div>

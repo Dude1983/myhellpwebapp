@@ -7,4 +7,5 @@
         {{ form.as_p }}
         <button type="submit">Submit</button>
     </form>
+    <a href="{% url 'edit_experience_uploads' slug=experience.slug %}">Edit images</a>
 {% endblock %}

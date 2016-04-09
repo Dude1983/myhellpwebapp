@@ -1,39 +1,80 @@
 {% load staticfiles %}
 <!DOCTYPE html>
 <html>
-  <head>
-      <title>
-          {% block title %}
+<head>
+    <title>
+        {% block title %}
             The Purity Experience
-          {% endblock %}
-      </title>
-      <link rel="stylesheet" href="{% static 'css/style.css' %}" />
-      {% block header %}
-      {%  endblock %}
-  </head>
-  <body>
-    <header>
-        <nav>
-            <ul>
-                <li>
-                    <a href="{% url 'home' %}">Home</a>
-                    <a href="{% url 'about' %}">About Us</a>
-                    <a href="{% url 'contact' %}">Contact</a>
-                    <a href="{% url 'browse' %}">Browse</a>
-                    {% if user.is_authenticated %}
-                        <a href="{% url 'auth_logout' %}">Logout</a>
-                        <a href="{% url 'password_change' %}">Change password</a>
-                    {% else %}
-                        <a href="{% url 'auth_login' %}">Login</a>
-                        <a href="{% url 'registration_register' %}">Register</a>
-                    {%  endif %}
-                </li>
-            </ul>
-        </nav>
-    </header>
-    {%  block content %}
-    {%  endblock %}
-    {%  block footer %}
-    {%  endblock %}
-  </body>
+        {% endblock %}
+    </title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+    {% block header %}
+    {% endblock %}
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-inverse">
+        <div class="container">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                            data-target="#bs-example-navbar-collapse-2">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Brand</a>
+                </div>
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+                        <li><a href="#">Link</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-expanded="false">Dropdown <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">Action</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">Separated link</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">One more separated link</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        <li><a href="{% url 'about' %}">About Us</a></li>
+                        <li><a href="{% url 'contact' %}">Contact</a></li>
+                        <li><a href="{% url 'browse' %}">Browse</a></li>
+                        {% if user.is_authenticated %}
+                            <li><a href="{% url 'auth_logout' %}">Logout</a></li>
+                            <li><a href="{% url 'password_change' %}">Change password</a></li>
+                        {% else %}
+                            <li><a href="{% url 'auth_login' %}">Login</a></li>
+                            <li><a href="{% url 'registration_register' %}">Register</a></li>
+                        {% endif %}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+    </nav>
+    </div>
+</header>
+{% if messages %}
+    {% for message in messages %}
+        <div {% if message.tags %} class="{{ message.tags }} alert alert-dismissable" {% endif %}>
+        <strong>{{ message }}</strong>
+        </div>
+    {% endfor %}
+{% endif %}
+<div class="container">
+    {% block content %}
+    {% endblock %}
+    {% block footer %}
+    {% endblock %}
+</body>
 </html>

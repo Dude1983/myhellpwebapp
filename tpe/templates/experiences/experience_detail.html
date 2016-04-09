@@ -1,9 +1,13 @@
-{%  extends 'layouts/base.html' %}
-{% block title %}{{ experience.name }} {{  block.super }} {% endblock %}
+{% extends 'layouts/base.html' %}
+{% block title %}{{ experience.name }} - {{ block.super }} {% endblock %}
 {% block content %}
     <h2>{{ experience.name }}</h2>
-    <p>{{ experience.description }}</p>
+    <p>Description: {{ experience.description }}</p>
+    {% for upload in uploads %}
+        <img src="{{ upload.image.url }}" alt=""/>
+    {% endfor %}
+    <p>Organiser: {{ experience.user }}</p>
     {% if user == experience.user %}
-        <a href="{%  url 'edit_experience' slug=experience.slug %}">Edit me!</a>
+        <a href="{% url 'edit_experience' slug=experience.slug %}">Edit me!</a>
     {% endif %}
 {% endblock %}

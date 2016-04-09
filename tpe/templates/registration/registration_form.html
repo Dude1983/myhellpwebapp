@@ -1,11 +1,27 @@
-{%  extends 'layouts/base.html' %}
-{%  block title %} Registration Form - {{ block.super }}
-{%  endblock %}
+{% extends 'layouts/base.html' %}
+{% load widget_tweaks %}
+
+{% block title %} Registration Form - {{ block.super }}
+{% endblock %}
 {% block content %}
-<h1>Registration Form</h1>
-<form role="form" action="" method="post">
+    <h1>Registration Form</h1>
     {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="submit">
-</form>
+    <form role="form" action="" method="post" class="form-group">
+        {% csrf_token %}
+        {% for field in form.visible_fields %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field|add_class:'form-control' }}
+                {% for error in field.errors %}
+                    <span class="help-tooltip">{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% endfor %}
+        <div class="form-group">
+            <button type="submit" class="btn btn-success">
+                <span class=""></span> Save
+            </button>
+            <a href="{% url 'home' %}" class="btn btn-default">Cancel</a>
+        </div>
+    </form>
 {% endblock %}
