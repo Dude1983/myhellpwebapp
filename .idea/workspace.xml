@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="50322e74-923d-4175-bcf2-c48ab50c0637" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tpe/templates/index.html" afterPath="$PROJECT_DIR$/tpe/templates/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tpe/views.py" afterPath="$PROJECT_DIR$/tpe/views.py" />
     </list>
     <ignored path="myhellowebapp.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -856,7 +853,14 @@
       <option name="project" value="LOCAL" />
       <updated>1460274926263</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="sorted out minor bugs and prettified the forms">
+      <created>1460277931592</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1460277931592</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TestHistory">
