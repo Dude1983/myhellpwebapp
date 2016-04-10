@@ -8,6 +8,8 @@
         {% endblock %}
     </title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     {% block header %}
     {% endblock %}
 </head>
@@ -67,6 +69,7 @@
 {% if messages %}
     {% for message in messages %}
         <div {% if message.tags %} class="{{ message.tags }} alert alert-dismissable" {% endif %}>
+        <a href="#" class="close" data-dismiss="alert">×</a>
         <strong>{{ message }}</strong>
         </div>
     {% endfor %}

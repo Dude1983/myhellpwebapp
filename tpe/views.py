@@ -14,7 +14,9 @@ from tpe.models import Upload
 # Create your views here.
 def index(request):
     experiences = Experience.objects.all().order_by('name')
-    return render(request, 'index.html', { 'experiences': experiences })
+    return render(request, 'index.html', {
+        'experiences': experiences,
+    })
 
 def experience_detail(request, slug):
     # grab the object
@@ -27,8 +29,10 @@ def experience_detail(request, slug):
 def edit_experience(request, slug):
     # grab the object
     experience = Experience.objects.get(slug=slug)
+
     if experience.user != request.user:
         raise Http404
+
     # set the form we're using
     form_class = ExperienceForm
 
@@ -36,6 +40,7 @@ def edit_experience(request, slug):
     if request.method == 'POST':
         # grab the data from the submitted form and apply to the form
         form = form_class(data=request.POST, instance=experience)
+
         if form.is_valid():
             # save the data
             form.save()
@@ -43,7 +48,11 @@ def edit_experience(request, slug):
             return redirect('experience_detail', slug=experience.slug)
     else:
         form = form_class(instance=experience)
-    return render(request, 'experiences/edit_experience.html', { 'experience': experience, 'form': form })
+
+    return render(request, 'experiences/edit_experience.html', {
+        'experience': experience,
+        'form': form,
+    })
 
 def create_experience(request):
     form_class = ExperienceForm
@@ -54,6 +63,7 @@ def create_experience(request):
             experience.user = request.user
             experience.slug = slugify(experience.name)
             experience.save()
+            messages.success(request, 'Experience saved.')
             return redirect('experience_detail', slug=experience.slug)
     else:
         form = form_class()
@@ -65,7 +75,10 @@ def browse_by_name(request, initial=None):
         experiences = experiences.order_by('name')
     else:
         experiences = Experience.objects.all().order_by('name')
-    return render(request, 'search/search.html', { 'experiences': experiences, 'initial': initial, })
+    return render(request, 'search/search.html', {
+        'experiences': experiences,
+        'initial': initial,
+    })
 
 def contact(request):
     form_class = ContactForm
@@ -86,6 +99,7 @@ def contact(request):
             content = template.render(context)
             email = EmailMessage('New contact form submission', content, 'Your website <hi@weddinglovely.com>', ['youremail@gmaiul.com'], headers = {'Reply-To': contact_email })
             email.send()
+            messages.success(request, 'Thank you. We will get back to you shortly.')
             return redirect('contact')
     return render(request, 'contact.html', { 'form': form_class})
 
@@ -104,8 +118,12 @@ def edit_experience_uploads(request, slug):
             return redirect('edit_experience_uploads', slug=experience.slug )
     else:
         form = form_class(instance=experience)
-        uploads = experience.uploads.all()
-    return render(request, 'experiences/edit_experience_uploads.html', {'experience': experience, 'form':form, 'uploads':uploads, })
+
+    uploads = experience.uploads.all()
+    return render(request, 'experiences/edit_experience_uploads.html', {
+        'experience': experience,
+        'form': form, 'uploads': uploads,
+    })
 
 @login_required
 def delete_upload(request, id):
@@ -114,4 +132,4 @@ def delete_upload(request, id):
         raise Http404
 
     upload.delete()
-    return redirect('edit_experience_uploads',slug=upload.experience.slug)
+    return redirect('edit_experience_uploads', slug=upload.experience.slug)

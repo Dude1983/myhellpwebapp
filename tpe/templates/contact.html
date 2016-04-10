@@ -4,8 +4,6 @@
 {% block title %}Contact - {{  block.super }} {% endblock %}
 {% block content %}
     <h1>Contact</h1>
-    <form role="form" action="" method="post">
-    {% csrf_token %}
     <form role="form" action="" method="post" class="form-group">
         {% csrf_token %}
         {% for field in form.visible_fields %}

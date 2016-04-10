@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils.encoding import force_bytes
+import os,sys
 from PIL import Image
 
 # Create your models here.
@@ -46,5 +47,6 @@ class Upload(models.Model):
             max_size = (250,250)
             if i_width > 250:
                 image.thumbnail(max_size, Image.ANTIALIAS)
-                image.save(self.image.path)
+                image.save(self.image.path, "JPEG")
+
 
