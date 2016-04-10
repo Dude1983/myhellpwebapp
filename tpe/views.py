@@ -13,7 +13,7 @@ from tpe.models import Upload
 
 # Create your views here.
 def index(request):
-    experiences = Experience.objects.all().order_by('name')
+    experiences = Experience.objects.prefetch_related('social_accounts', 'uploads').all()
     return render(request, 'index.html', {
         'experiences': experiences,
     })

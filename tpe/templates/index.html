@@ -10,6 +10,19 @@
         </div>
         <div class="panel-body">
             <p>{{ experience.description }}</p>
+
+            {% if experience.social_accounts %}
+                {% for account in experience.social_accounts.all %}
+                    <li>{{ account.network|title }}</li>
+                {% endfor %}
+            {% endif %}
+
+            {% if experience.uploads %}
+                {% for upload in experience.uploads.all %}
+                    <img src="{{ upload.image.url }}" alt=""/>
+                {% endfor %}
+            {% endif %}
+
             <p>{{ experience.user }}</p>
         </div>
     {% endfor %}
